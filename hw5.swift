@@ -1,4 +1,5 @@
-/*Домашнее задание
+/*
+6.	Домашнее задание
 Условие:
 1.	В рамках прошлого дз был создан класс пиццерии с переменной, в которой хранится пицца, 
 удалите ее. Необходимо создать структуру картошки фри, в которой будет стоимость и размер 
@@ -26,69 +27,72 @@ class Pizzerias {
     }
  
         
-    func getAllMenu() -> MenuProtocol {
+    func getAllMenu() -> [MenuProtocol] {
         return menu
     } 
  }
  
  var somepizzeria = Pizzerias(menu: [])
 
-struct Fries {
+struct Fries: MenuProtocol {
     var cost: Double
     var size: String
+    var name: String
     
-    init(cost: Double, size: String) {
+    init(cost: Double, size: String, name: String) {
         self.cost = cost
         self.size = size
+        self.name = name
     }
 }
 
-struct Pizza {
+struct Pizza: MenuProtocol {
     var cost: Double
     var type: String
+    var name: String
     
-    init(cost: Double, type: String) {
+    init(cost: Double, type: String, name: String) {
         self.cost = cost
         self.type = type
+        self.name = name
     }
 }
 
 let pizzerias = Pizzerias (menu: [])
-let fries = Fries(cost: 150 , size: "M")
-let pizza = Pizza(cost: 300, type: "Mozarella")
+print(pizzerias.getAllMenu())
+
+let fries = Fries(cost: 150 , size: "M", name: "Hot")
+let pizza = Pizza(cost: 300, type: "Mozarella", name: "Bu")
 pizzerias.add(fries)
 pizzerias.add(pizza)
 
 
 protocol WorkProtocol {
     func start()
-    func final()
+    func end()
 }
 
-extension PizzeriasWork: UITableViewDelegate, UITableViewDataSource {
+extension Pizzerias: WorkProtocol {
     
     func start() {
         print("Start work")
     }
     
-    func final() {
+    func end() {
         print("Final work")
     }
     
 }
 
-start(Pizzerias)
+pizzerias.start()
+print(pizzerias.getAllMenu())
 
 /*5.	Написать функцию, в которой происходит вычитание одного числа из другого. Функция должна 
-работать и с Int, и с Double.Функция должна возвращать результат вычитания Numeric
-*/
+работать и с Int, и с Double. Функция должна возвращать результат вычитания Numeric*/
 
-func Subtraction (a: Double, b: Double) -> Double {
-    var a = 54.565
-    var b = 65
-    var Numeric = (a - b)
-    
-    return Numeric
-    
+func Subtraction<T: Numeric>(a: T, b: T) -> T {
+a - b
 }
+
+print (Subtraction(a: 56, b:45))
 
