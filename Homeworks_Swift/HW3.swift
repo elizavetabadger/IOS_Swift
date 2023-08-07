@@ -1,4 +1,9 @@
-/*1. Необходимо очистить ViewController и добавить на него WKWebView(WKWebView). Для этого необходимо вверху импортировать WebKit, затем добавить WKWebView в качестве subview и сделать контроллер делегатом для webView (для этого ViewController должен соответствовать WKNavigationDelegate). Затем необходимо начать загрузку, например, во viewDidLoad(). Для этого вызывается webView.load и передается URLRequest. Подробнее о запросе, который необходимо отправить можно прочитать здесь: https://dev.vk.com/api/oauth-parameters. Также предварительно необходимо “Создать приложение”. Сделать это можно кликнув на “Создать приложение” здесь: https://dev.vk.com/. Затем необходимо реализовать метод func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void).
+/*1. Необходимо очистить ViewController и добавить на него WKWebView(WKWebView). 
+Для этого необходимо вверху импортировать WebKit, затем добавить WKWebView в качестве subview и сделать контроллер делегатом для webView 
+(для этого ViewController должен соответствовать WKNavigationDelegate). Затем необходимо начать загрузку, например, во viewDidLoad(). 
+Для этого вызывается webView.load и передается URLRequest. 
+Также предварительно необходимо “Создать приложение”. Сделать это можно кликнув на “Создать приложение” здесь: https://dev.vk.com/. 
+Затем необходимо реализовать метод func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void).
 Token и userID нам еще понадобятся для дальнейших запросов.*/
 
 import UIKit
@@ -22,12 +27,13 @@ class ViewController: UIViewController, WKNavigationDelegate {
     }
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        // Handle the navigation response and decide whether to allow or cancel the navigation
         decisionHandler(.allow)
     }
 }
 
-/*2. На следующем контроллере планируется отображение списка друзей. Подумайте и решите, как удобнее: открывать окно авторизации на ViewController и затем переходить к списку друзей или открывать авторизацию на экране списка друзей. Реализуйте свое решение.*/
+/*2. На следующем контроллере планируется отображение списка друзей. 
+Подумайте и решите, как удобнее: открывать окно авторизации на ViewController и затем переходить к списку друзей или открывать авторизацию на экране списка друзей. 
+Реализуйте свое решение.*/
 
 import UIKit
 
@@ -192,6 +198,8 @@ class APIManager {
     }
 }
 
+//Отобразить информацию на экране
+
 struct Friend {
     let name: String
 }
@@ -204,7 +212,8 @@ struct Photo {
     let url: String
 }
 
-/*3. Получать список друзей. Для этого необходимо изучить документацию, а затем выбрать правильный метод. Результат нужно выводить в консоль. Отображать список не нужно. Место, где можно искать метод: https://dev.vk.com/method/friends.
+/*3. Получать список друзей. Для этого необходимо изучить документацию, а затем выбрать правильный метод. Результат нужно выводить в консоль. 
+Отображать список не нужно.
 Запрос должен отправляться только после перехода к экрану списка друзей.*/
 
 import UIKit
@@ -334,7 +343,7 @@ class GroupsViewController: UIViewController {
     }
 }
 
-/*5. Получать фотографии со страницы пользователя. Для этого необходимо изучить документацию, а затем выбрать правильный метод. Результат нужно выводить в консоль. Отображать фотографии не нужно. Место, где можно искать метод: https://dev.vk.com/method/photos.
+/*5. Получать фотографии со страницы пользователя. Для этого необходимо изучить документацию, а затем выбрать правильный метод. Результат нужно выводить в консоль. Отображать фотографии не нужно.
 Запрос должен отправляться только после перехода к экрану фотографий.*/
 
 func getPhotosFromUser() {
