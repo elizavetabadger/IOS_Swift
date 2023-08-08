@@ -212,7 +212,7 @@ struct Photo {
     let url: String
 }
 
-/*3. Получать список друзей. Для этого необходимо изучить документацию, а затем выбрать правильный метод. Результат нужно выводить в консоль. 
+/*3. Получать список друзей. Результат нужно выводить в консоль. 
 Отображать список не нужно.
 Запрос должен отправляться только после перехода к экрану списка друзей.*/
 
@@ -319,7 +319,8 @@ class GroupsViewController: UIViewController {
                 }
             }
         }, errorBlock: { error in
-            print(error?.localizedDescription ?? "")
+            print("Error")
+            print(error?.localizedDescription)
         })
     }
     
