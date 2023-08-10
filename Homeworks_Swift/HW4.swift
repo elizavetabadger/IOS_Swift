@@ -17,7 +17,7 @@ struct Photo {
     let name: String
 }
 
-class FriendsViewController: UIViewController {
+class FriendsViewController: UICollectionViewController {
     
     var friends: [Friend] = []
     
@@ -81,7 +81,7 @@ extension FriendsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-class GroupsViewController: UIViewController {
+class GroupsViewController: UICollectionViewController {
     
     var groups: [Group] = []
     
@@ -138,7 +138,7 @@ extension GroupsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-class PhotosViewController: UIViewController {
+class PhotosViewController: UICollectionViewController {
     
     var photos: [Photo] = []
     
