@@ -3,17 +3,7 @@
 2. Реализовать экран профиля. На нем должно содержаться имя
 пользователя и фото.
 3. Реализовать свою анимацию перехода от UITabBarController к
-экрану профиля.
-4. Создать новый проект (это будет проект 3), в котором будем
-разрабатывать интерфейс с помощью SwiftUI.
-5. Необходимо реализовать два экрана. На первом только текст или
-кнопка или ссылка. По клику на текст/кнопку/ссылку необходимо
-перейти на следующий экран. На следующем экране должна
-отображаться таблица (после загрузки данных из сети), в которой
-содержатся новости. В ячейке должно быть название новости и
-дата публикации. Внешний вид на ваше усмотрение.
-Для получения новостей изучите api:
-https://docs.kudago.com/api/#page:новости,header:новости-списокновостей */
+экрану профиля. */
 
 import UIKit
 
@@ -62,6 +52,84 @@ class ProfileViewController: UIViewController {
     }
 
 }
-Результат:
-На экране с беседами в navigationBar добавлена кнопка "Профиль". По клику на эту кнопку происходит animixticn и переход к экрану профиля. 
-На экране профиля отображается фото пользователя и его имя.
+
+/* 4. Создать новый проект (это будет проект 3), в котором будем
+разрабатывать интерфейс с помощью SwiftUI.
+5. Необходимо реализовать два экрана. На первом только текст или
+кнопка или ссылка. По клику на текст/кнопку/ссылку необходимо
+перейти на следующий экран. На следующем экране должна
+отображаться таблица (после загрузки данных из сети), в которой
+содержатся новости. В ячейке должно быть название новости и
+дата публикации. Внешний вид на ваше усмотрение.
+Для получения новостей изучите api:
+https://docs.kudago.com/api/#page:новости,header:новости-списокновостей */
+
+import SwiftUI
+
+struct ContentView: View {
+ var body: some View {
+        NavigationView {
+            VStack {
+                NavigationLink(destination: NewsListView()) {
+                    Text("Новости")
+                        .font(.title)
+                        .padding()
+                        .background(Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                }
+            }
+            .navigationBarTitle("Главный экран")
+        }
+    }
+}
+
+struct NewsListView: View {
+    @State private var news: [News] = []
+    
+    var body: some View {
+        List(news, id: \.id) { newsItem in
+            VStack(alignment: .leading) {
+                Text(newsItem.title)
+                    .font(.headline)
+                Text(newsItem.date)
+                    .font(.subheadline)
+            }
+        }
+        .navigationBarTitle("Новости")
+        .onAppear() {
+            loadNews()
+        }
+    }
+    
+    func loadNews() {
+        guard let url = URL(string: "https://docs.kudago.com/api/#page:новости,header:новости-списокновостей") else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let data = data {
+                let decoder = JSONDecoder()
+                if let decodedData = try? decoder.decode([News].self, from: data) {
+                    DispatchQueue.main.async {
+                        self.news = decodedData
+                    }
+                    return
+                }
+            }
+            print("Error: \(error?.localizedDescription ?? "Unknown error")")
+        }.resume()
+    }
+}
+
+struct News: Codable, Identifiable {
+    var id: Int
+    var title: String
+    var date: String
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
