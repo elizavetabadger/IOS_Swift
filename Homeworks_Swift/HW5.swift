@@ -71,7 +71,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 NavigationLink(destination: NewsListView()) {
-                    Text("Новости")
+                    Text("News")
                         .font(.title)
                         .padding()
                         .background(Color.blue)
@@ -79,7 +79,7 @@ struct ContentView: View {
                         .cornerRadius(10)
                 }
             }
-            .navigationBarTitle("Главный экран")
+            .navigationBarTitle("Main screen")
         }
     }
 }
@@ -96,7 +96,7 @@ struct NewsListView: View {
                     .font(.subheadline)
             }
         }
-        .navigationBarTitle("Новости")
+        .navigationBarTitle("News")
         .onAppear() {
             loadNews()
         }
