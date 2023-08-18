@@ -112,7 +112,7 @@ func saveGroup(name: String, members: Int) {
     do {
         try context.save()
     } catch {
-    print("Ошибка при сохранении данных о группе: \(error.localizedDescription)")
+        print("Ошибка при сохранении данных о группе: \(error.localizedDescription)")
     }
 }
 
