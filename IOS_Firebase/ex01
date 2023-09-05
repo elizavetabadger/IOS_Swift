@@ -1,0 +1,85 @@
+Генерация кода
+Создание учетной записи в Firebase
+language-swift
+Copy code
+// Импорт необходимых модулей
+import Firebase
+
+// Инициализация Firebase
+FirebaseApp.configure()
+
+// Создание учетной записи пользователя
+Auth.auth().createUser(withEmail: "example@example.com", password: "password") { (authResult, error) in
+    // Проверка на наличие ошибок
+    if let error = error {
+        print("Ошибка при создании учетной записи: \(error.localizedDescription)")
+        return
+    }
+    
+    // Учетная запись успешно создана
+    print("Учетная запись успешно создана")
+}
+Интеграция Firebase в приложение
+language-swift
+Copy code
+// Импорт необходимых модулей
+import Firebase
+
+// Инициализация Firebase
+FirebaseApp.configure()
+Настройка изменения данных в Firebase без авторизации
+language-swift
+Copy code
+// Импорт необходимых модулей
+import Firebase
+
+// Инициализация Firebase
+FirebaseApp.configure()
+
+// Получение ссылки на базу данных Firebase
+let database = Database.database().reference()
+
+// Запись данных в Firebase
+database.child("users").childByAutoId().setValue(["name": "John", "age": 25])
+Запись пользователей в базу данных
+language-swift
+Copy code
+// Импорт необходимых модулей
+import Firebase
+
+// Инициализация Firebase
+FirebaseApp.configure()
+
+// Получение ссылки на базу данных Firebase
+let database = Database.database().reference()
+
+// Получение текущего пользователя
+guard let currentUser = Auth.auth().currentUser else {
+    print("Пользователь не авторизован")
+    return
+}
+
+// Запись данных пользователя в Firebase
+database.child("users").child(currentUser.uid).setValue(["name": "John", "age": 25])
+Запись групп для каждого пользователя
+language-swift
+Copy code
+// Импорт необходимых модулей
+import Firebase
+
+// Инициализация Firebase
+FirebaseApp.configure()
+
+// Получение ссылки на базу данных Firebase
+let database = Database.database().reference()
+
+// Получение текущего пользователя
+guard let currentUser = Auth.auth().currentUser else {
+    print("Пользователь не авторизован")
+    return
+}
+
+// Запись групп для текущего пользователя
+database.child("users").child(currentUser.uid).child("groups").childByAutoId().setValue("Group 1")
+database.child("users").child(currentUser.uid).child("groups").childByAutoId().setValue("Group 2")
+Это примеры кода на языке Swift для создания учетной записи в Firebase, интеграции Firebase в приложение, настройки изменения данных в Firebase без авторизации, записи пользователей в базу данных и записи групп для каждого пользователя.

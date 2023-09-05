@@ -1,0 +1,69 @@
+//1. Создание учетной записи в Firebase:
+import Firebase
+
+// Инициализация Firebase приложения
+FirebaseApp.configure()
+
+// Создание учетной записи
+Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
+    // Обработка успешного создания учетной записи или ошибки
+    if let error = error {
+        print("Ошибка при создании учетной записи: \(error.localizedDescription)")
+    } else {
+        print("Учетная запись успешно создана")
+    }
+}
+//2. Интеграция Firebase в приложение:
+//Добавьте Firebase SDK в проект и установите его в Podfile или через Swift Package Manager.
+//Импортируйте Firebase в код приложения:
+import Firebase
+//Настройка изменения данных в Firebase без авторизации:
+import FirebaseFirestore
+
+let db = Firestore.firestore()
+
+// Включение возможности записывать данные без авторизации
+db.settings.isPersistenceEnabled = true
+
+// Пример записи данных в коллекцию "users"
+db.collection("users").document("documentId").setData([
+    "name": "John",
+    "age": 25
+]) { error in
+    if let error = error {
+        print("Ошибка при записи данных: \(error.localizedDescription)")
+    } else {
+        print("Данные успешно записаны")
+    }
+}
+//3.Запись в базу пользователей, которые авторизовались в приложении (id):
+guard let currentUser = Auth.auth().currentUser else {
+    print("Пользователь не авторизован")
+    return
+}
+
+let userId = currentUser.uid
+
+// Запись id пользователя в коллекцию "users"
+db.collection("users").document(userId).setData([
+    "id": userId
+]) { error in
+    if let error = error {
+        print("Ошибка при записи данных: \(error.localizedDescription)")
+    } else {
+        print("Данные успешно записаны")
+    }
+}
+//4. Записывание для каждого пользователя групп, которые он добавлял в приложении:
+let groupId = "groupId"
+
+// Добавление id группы для текущего пользователя
+db.collection("users").document(userId).collection("groups").document(groupId).setData([
+    "id": groupId
+]) { error in
+    if let error = error {
+        print("Ошибка при записи данных: \(error.localizedDescription)")
+    } else {
+        print("Данные успешно записаны")
+    }
+}
