@@ -1,6 +1,5 @@
 //1. Создание учетной записи в Firebase:
 import Firebase
-
 // Инициализация Firebase приложения
 FirebaseApp.configure()
 
@@ -14,18 +13,17 @@ Auth.auth().createUser(withEmail: email, password: password) { (authResult, erro
     }
 }
 //2. Интеграция Firebase в приложение:
-//Добавьте Firebase SDK в проект и установите его в Podfile или через Swift Package Manager.
-//Импортируйте Firebase в код приложения:
+//Импорртируем Firebase:
 import Firebase
-//Настройка изменения данных в Firebase без авторизации:
+//3. Настройка изменения данных в Firebase без авторизации:
 import FirebaseFirestore
 
 let db = Firestore.firestore()
 
-// Включение возможности записывать данные без авторизации
+// Добавление возможности записывать данные без авторизации
 db.settings.isPersistenceEnabled = true
 
-// Пример записи данных в коллекцию "users"
+// Запись данных в коллекцию "users"
 db.collection("users").document("documentId").setData([
     "name": "John",
     "age": 25
@@ -36,7 +34,7 @@ db.collection("users").document("documentId").setData([
         print("Данные успешно записаны")
     }
 }
-//3.Запись в базу пользователей, которые авторизовались в приложении (id):
+//4.Запись в базу пользователей, которые авторизовались в приложении (id):
 guard let currentUser = Auth.auth().currentUser else {
     print("Пользователь не авторизован")
     return
@@ -54,7 +52,7 @@ db.collection("users").document(userId).setData([
         print("Данные успешно записаны")
     }
 }
-//4. Записывание для каждого пользователя групп, которые он добавлял в приложении:
+//5. Записывание для каждого пользователя групп, которые он добавлял в приложении:
 let groupId = "groupId"
 
 // Добавление id группы для текущего пользователя
